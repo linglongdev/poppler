@@ -1,0 +1,35 @@
+package:
+  id: poppler
+  name: poppler
+  version: 0.71.0.2
+  kind: lib
+  description: |
+    poppler.
+
+base:
+  id: org.deepin.base
+  version: 20.5.0
+
+source:
+  kind: git
+  url: https://github.com/deepin-community/poppler.git
+  version: master
+  commit: f0b0f33eb6106001407f63b825095d3c35ad2499
+
+  patch:
+  - segfault-on-unset-catalog.patch
+variables:
+  extra_args: |
+    -DCMAKE_BUILD_TYPE=Release              \
+    -DENABLE_GLIB=ON                        \
+    -DENABLE_QT5=ON                         \
+    -DENABLE_CPP=ON                         \
+    -DENABLE_GTK_DOC=OFF                  \
+    -DENABLE_XPDF_HEADERS=ON                \
+    -DENABLE_CMS=lcms2                      \
+    -DENABLE_LIBOPENJPEG=openjpeg2          \
+    -DBUILD_GTK_TESTS=OFF
+
+
+build:
+  kind: cmake
